@@ -61,3 +61,15 @@ async def read_questions(question_id: int , db: db_dependency):
     
 
 
+#GET choices
+@app.get("/choices/{questions}")
+async def read_choices(question_id : int, db: db_dependency):
+    result = db.query(models.Choices).filter(models.Choices.question_id == question_id).all()
+    if not result : 
+        raise HTTPException(status_code = 404, detail = "Choices is not found")
+    return result
+    
+
+
+
+
